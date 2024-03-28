@@ -1,8 +1,12 @@
 import os
+import shutil
 import SQLTemplateReader
 
 # Path to the SQL template file used for generating CRUD
 SQL_TEMPLATE_FILENAME = "SQLTemplate.sql"
+
+TEMPLATE_FOLDER_NAME = "template"
+
 
 def GenerateCRUD(templateInfo):
     tableName = templateInfo["name"]
@@ -10,15 +14,21 @@ def GenerateCRUD(templateInfo):
 
     if os.path.isdir(tableName):
         try:
-            os.remove(tableName)
+            shutil.rmtree(tableName)
         except:
             print("[GenerateCRUDS::GenerateCRUDS] failed to remove existing folder: " + tableName)
             return
+        
+        try:
+            os.mkdir(tableName)
+        except:
+            print("[GenerateCRUDS::GenerateCRUDS] failed to re-create folder: " + tableName)
+    
     try:
-        os.mkdir(tableName)
-    except OSError:
-        print("[GenerateCRUDS::GenerateCRUDS] failed to create a new folder: " + tableName)
-
+        shutil.copytree(TEMPLATE_FOLDER_NAME, tableName)
+    except:
+        print("[GenerateCRUDS::GenerateCRUDS] failed to dupplicate to new folder: " + tableName)
+    
     return
 
 def GenerateCRUDS(templateInfos):
