@@ -18,11 +18,6 @@ def GenerateCRUD(templateInfo):
         except:
             print("[GenerateCRUDS::GenerateCRUDS] failed to remove existing folder: " + tableName)
             return
-        
-        try:
-            os.mkdir(tableName)
-        except:
-            print("[GenerateCRUDS::GenerateCRUDS] failed to re-create folder: " + tableName)
     
     try:
         shutil.copytree(TEMPLATE_FOLDER_NAME, tableName)
