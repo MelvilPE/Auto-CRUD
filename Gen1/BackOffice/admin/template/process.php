@@ -2,19 +2,15 @@
     require_once $_SERVER['DOCUMENT_ROOT']."/admin/include/protect.php";
     require_once $_SERVER['DOCUMENT_ROOT']."/admin/include/connect.php";
     
-    if (isset($_POST["user_id"]) && $_POST["user_id"] > 0)
+    if (isset($_POST["CRUD_PRIMARY_KEY"]) && $_POST["CRUD_PRIMARY_KEY"] > 0)
     {
-        $sql = "UPDATE table_user SET 
-                user_name=:user_name,
-                user_password=:user_password,
-                user_date=:user_date,
-                user_category_id=:user_category_id,
-                machine_id=:machine_id
-                WHERE user_id=:user_id";
+        $sql = "UPDATE CRUD_TABLE_NAME SET 
+                CRUD_PROCESS_UPDATE_ALL_PARAMS=:CRUD_PROCESS_UPDATE_ALL_PARAMS,
+                WHERE CRUD_PRIMARY_KEY=:CRUD_PRIMARY_KEY";
     }
     else
     {
-        $sql = "INSERT INTO table_user (user_name, user_password, user_date, user_category_id, machine_id)
+        $sql = "INSERT INTO CRUD_TABLE_NAME (user_name, user_password, user_date, user_category_id, machine_id)
                 VALUES (:user_name, :user_password, :user_date, :user_category_id, :machine_id)";
     }
 
