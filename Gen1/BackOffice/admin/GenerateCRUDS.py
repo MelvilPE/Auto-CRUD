@@ -1,12 +1,12 @@
 import os
 import shutil
 import SQLTemplateReader
+import CRUDFilesProcessor
 
 # Path to the SQL template file used for generating CRUD
 SQL_TEMPLATE_FILENAME = "SQLTemplate.sql"
 
 TEMPLATE_FOLDER_NAME = "template"
-
 
 def GenerateCRUD(templateInfo):
     tableName = templateInfo["name"]
@@ -28,8 +28,8 @@ def GenerateCRUD(templateInfo):
         shutil.copytree(TEMPLATE_FOLDER_NAME, tableName)
     except:
         print("[GenerateCRUDS::GenerateCRUDS] failed to dupplicate to new folder: " + tableName)
-    
-    return
+
+    CRUDFilesProcessor.ProcessFiles(tableName)
 
 def GenerateCRUDS(templateInfos):
     for templateIndex in range(len(templateInfos)):
