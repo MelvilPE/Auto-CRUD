@@ -5,42 +5,75 @@ FORM_FILE_NAME    = "form.php"
 INDEX_FILE_NAME   = "index.php"
 PROCESS_FILE_NAME = "process.php"
 
-def ProcessFiles(folderName):
+CRUD_PRIMARY_KEY = b"CRUD_PRIMARY_KEY"
+CRUD_TABLE_NAME  = b"CRUD_TABLE_NAME"
+CRUD_PARAMETERS  = b"CRUD_PARAMETERS"
+
+def ProcessFiles(folderName, tableParams):
+	"""
+	Replaces placeholders : table name & primary key
+	Writes the updated lines to the DELETE_FILE_NAME file.
+	"""
 	def ProcessDelete():
 		filePath = os.path.join(folderName, DELETE_FILE_NAME)
 		if not os.path.exists(filePath):
 			return
 		
+		updateRewriteLines = []
 		with open(filePath, 'rb') as file:
-			content = file.readlines()
-			for each in content:
-				print(each)
+			lines = file.readlines()
+			for line in lines:
+				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				line = line.replace(CRUD_PRIMARY_KEY, tableParams[0]['name'].encode())
+				updateRewriteLines.append(line)
 
-			print("aaa")
+		with open(filePath, 'wb') as file:
+			file.writelines(updateRewriteLines)
 
 	def ProcessForm():
 		filePath = os.path.join(folderName, FORM_FILE_NAME)
 		if not os.path.exists(filePath):
 			return
 		
+		updateRewriteLines = []
 		with open(filePath, 'rb') as file:
-			pass
+			lines = file.readlines()
+			for line in lines:
+				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				updateRewriteLines.append(line)
+
+		with open(filePath, 'wb') as file:
+			file.writelines(updateRewriteLines)	
 
 	def ProcessIndex():
 		filePath = os.path.join(folderName, INDEX_FILE_NAME)
 		if not os.path.exists(filePath):
 			return
 		
+		updateRewriteLines = []
 		with open(filePath, 'rb') as file:
-			pass
+			lines = file.readlines()
+			for line in lines:
+				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				updateRewriteLines.append(line)
+
+		with open(filePath, 'wb') as file:
+			file.writelines(updateRewriteLines)	
 
 	def ProcessProcess():
 		filePath = os.path.join(folderName, PROCESS_FILE_NAME)
 		if not os.path.exists(filePath):
 			return
 		
+		updateRewriteLines = []
 		with open(filePath, 'rb') as file:
-			pass
+			lines = file.readlines()
+			for line in lines:
+				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				updateRewriteLines.append(line)
+
+		with open(filePath, 'wb') as file:
+			file.writelines(updateRewriteLines)	
 
 	ProcessDelete()
 	ProcessForm()

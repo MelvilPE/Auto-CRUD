@@ -2,13 +2,13 @@
     require_once $_SERVER['DOCUMENT_ROOT']."/admin/include/protect.php";
     require_once $_SERVER['DOCUMENT_ROOT']."/admin/include/connect.php";
 
-    if (isset($_GET["user_id"]) && $_GET["user_id"] > 0)
+    if (isset($_GET["CRUD_PRIMARY_KEY"]) && $_GET["CRUD_PRIMARY_KEY"] > 0)
     {
-        $sql = "DELETE FROM table_user
-        WHERE user_id = :user_id";
+        $sql = "DELETE FROM CRUD_TABLE_NAME
+        WHERE CRUD_PRIMARY_KEY = :CRUD_PRIMARY_KEY";
 
         $statement = $db->prepare($sql);
-        $statement->bindParam(":user_id", $_GET["user_id"]);
+        $statement->bindParam(":CRUD_PRIMARY_KEY", $_GET["CRUD_PRIMARY_KEY"]);
         $statement->execute();
     }
 
