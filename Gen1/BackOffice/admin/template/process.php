@@ -5,40 +5,26 @@
     if (isset($_POST["CRUD_PRIMARY_KEY"]) && $_POST["CRUD_PRIMARY_KEY"] > 0)
     {
         $sql = "UPDATE CRUD_TABLE_NAME SET 
-                CRUD_PROCESS_UPDATE_ALL_PARAMS=:CRUD_PROCESS_UPDATE_ALL_PARAMS,
+                CRUD_PROCESS_ALL_PARAMS=:CRUD_PROCESS_ALL_PARAMS,
                 WHERE CRUD_PRIMARY_KEY=:CRUD_PRIMARY_KEY";
     }
     else
     {
-        $sql = "INSERT INTO CRUD_TABLE_NAME (user_name, user_password, user_date, user_category_id, machine_id)
-                VALUES (:user_name, :user_password, :user_date, :user_category_id, :machine_id)";
+        $sql = "INSERT INTO CRUD_TABLE_NAME (
+                    CRUD_PROCESS_ALL_PARAMS,
+                )
+                VALUES (
+                    :CRUD_PROCESS_ALL_PARAMS,
+                )";
     }
 
     $statement = $db->prepare($sql);
-    if (isset($_POST["user_id"]) && $_POST["user_id"] > 0)
+    if (isset($_POST["CRUD_PRIMARY_KEY"]) && $_POST["CRUD_PRIMARY_KEY"] > 0)
     {
-        $statement->bindParam(":user_id", $_POST["user_id"]);
+        $statement->bindParam(":CRUD_PRIMARY_KEY", $_POST["CRUD_PRIMARY_KEY"]);
     }
-    if (isset($_POST["user_name"]))
-    {
-        $statement->bindParam(":user_name", $_POST["user_name"]);
-    }
-    if (isset($_POST["user_password"]))
-    {
-        $statement->bindParam(":user_password", $_POST["user_password"]);
-    }
-    if (isset($_POST["user_date"]))
-    {
-        $statement->bindParam(":user_date", $_POST["user_date"]);
-    }
-    if (isset($_POST["user_category_id"]))
-    {
-        $statement->bindParam(":user_category_id", $_POST["user_category_id"]);
-    }
-    if (isset($_POST["machine_id"]))
-    {
-        $statement->bindParam(":machine_id", $_POST["machine_id"]);
-    }
+
+    if (isset($_POST["CRUD_PROCESS_ALL_END_PARAMS"])) { $statement->bindParam(":CRUD_PROCESS_ALL_END_PARAMS", $_POST["CRUD_PROCESS_ALL_END_PARAMS"]); }
     
     $statement->execute();
     header("location:index.php");
