@@ -7,7 +7,9 @@ PROCESS_FILE_NAME = "process.php"
 
 CRUD_PRIMARY_KEY = b"CRUD_PRIMARY_KEY"
 CRUD_TABLE_NAME  = b"CRUD_TABLE_NAME"
-CRUD_PARAMETERS  = b"CRUD_PARAMETERS"
+CRUD_ALL_PARAMS  = b"CRUD_ALL_PARAMS"
+
+CRUD_FORM_ALL_PARAMS  = b"CRUD_FORM_ALL_PARAMS"
 
 def ProcessFiles(folderName, tableParams):
 	"""
@@ -40,6 +42,16 @@ def ProcessFiles(folderName, tableParams):
 			lines = file.readlines()
 			for line in lines:
 				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				line = line.replace(CRUD_PRIMARY_KEY, tableParams[0]['name'].encode())
+
+				if CRUD_ALL_PARAMS in line:
+					for param in tableParams:
+						eachAppendedLine = line.replace(CRUD_ALL_PARAMS, param['name'].encode())
+						updateRewriteLines.append(eachAppendedLine)
+					continue
+
+
+
 				updateRewriteLines.append(line)
 
 		with open(filePath, 'wb') as file:
