@@ -50,8 +50,6 @@ def ProcessFiles(folderName, tableParams):
 						updateRewriteLines.append(eachAppendedLine)
 					continue
 
-
-
 				updateRewriteLines.append(line)
 
 		with open(filePath, 'wb') as file:
@@ -67,6 +65,14 @@ def ProcessFiles(folderName, tableParams):
 			lines = file.readlines()
 			for line in lines:
 				line = line.replace(CRUD_TABLE_NAME, folderName.encode())
+				line = line.replace(CRUD_PRIMARY_KEY, tableParams[0]['name'].encode())
+
+				if CRUD_ALL_PARAMS in line:
+					for param in tableParams:
+						eachAppendedLine = line.replace(CRUD_ALL_PARAMS, param['name'].encode())
+						updateRewriteLines.append(eachAppendedLine)
+					continue
+
 				updateRewriteLines.append(line)
 
 		with open(filePath, 'wb') as file:
