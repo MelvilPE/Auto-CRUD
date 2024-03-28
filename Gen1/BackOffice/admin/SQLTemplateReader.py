@@ -52,6 +52,8 @@ def ReadSQLTemplate(sqlFilename):
                 continue
             if "FOREIGN KEY" in sqlParamLine:
                 continue
+            if "UNIQUE" in sqlParamLine:
+                continue
 
             paramName = sqlParamLine.split()[0]
             paramType = sqlParamLine.split()[1]
