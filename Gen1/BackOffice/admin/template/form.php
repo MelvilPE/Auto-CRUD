@@ -6,7 +6,7 @@
 
     if (isset($_GET["CRUD_PRIMARY_KEY"]) && $_GET["CRUD_PRIMARY_KEY"] > 0)
     {
-        $sql = "SELECT * FROM table_user 
+        $sql = "SELECT * FROM CRUD_TABLE_NAME 
                 WHERE CRUD_PRIMARY_KEY = :CRUD_PRIMARY_KEY";
 
         $statement = $db->prepare($sql);
